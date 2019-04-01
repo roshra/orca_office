@@ -1,21 +1,41 @@
-// orca.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// orca_office.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include "pch.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <regex>
+using namespace std;
+
+void style_1();
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	std::cout << "getting to read orca file\n";
+	style_1();	// Just opens and reads entire file
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void style_1() {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	string line;
+	ifstream myfile("C:\\Users\\ravir\\source\\repos\\orchestration_info.txt", ios::in);
+	if (myfile.is_open()) {
+
+		while (getline(myfile, line)) {
+
+			// cout << line << endl;
+			regex r("(Obj ID                                  : )(.*)");
+			smatch m;
+			regex_search(line, m, r);
+			for (auto x : m)
+				cout << x << " " << endl;
+
+		}
+
+	}
+
+	myfile.close();
+
+}
+	
